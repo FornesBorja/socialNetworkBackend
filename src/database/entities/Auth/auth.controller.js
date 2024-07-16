@@ -26,13 +26,6 @@ export const register = async (req, res) => {
       data: newUSer,
     });
   } catch (error) {
-    if(error==="email and password are required!")
-    {
-        res.status(402).json({
-            success: false,
-            message: error,
-        })
-    }
     res.status(500).json({
       success: false,
       message: "Error registering user",
