@@ -4,12 +4,13 @@ const UserSchema = new Schema(
   {
     email: {
       type: String,
-      required: true,
+      required:  [true, 'Email is required'],
       unique: true,
+      match: [/.+@.+\..+/, 'Please enter a valid email address'],
     },
     password: {
       type: String,
-      required: true,
+      required:[true, 'Password is required'],
     },
     posts: [{
         type: Schema.Types.ObjectId,
@@ -21,7 +22,7 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["user", "admin", "super_adimn"],
+      enum: ["user", "admin", "super_admin"],
       default: "user",
     },
   },
@@ -30,6 +31,6 @@ const UserSchema = new Schema(
   }
 );
 
-const User = model("Users", UserSchema);
+const Users = model("Users", UserSchema);
 
-export default User;
+export default Users;
