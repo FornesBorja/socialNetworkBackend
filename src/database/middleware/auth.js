@@ -15,7 +15,7 @@ export const auth = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);    
 
     req.tokenData = {
-      id: decoded.id,
+      id: decoded._id,
       role: decoded.role
     }
 
