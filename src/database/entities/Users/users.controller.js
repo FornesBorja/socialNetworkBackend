@@ -45,3 +45,37 @@ export const getUserProfile = async (req, res) =>{
         )
       }
 }
+
+export const updateUserProfile = async (req, res) => {
+  try {
+      const userID = req.tokenData.id
+      const { name, email, password } = req.body
+      let hashPassword
+      if (!name && !email && !password) {
+          throw new Error ("Need some information to update")
+      }
+      if (password) {
+          hashPassword = bcrypt.hashSync(password, parseInt(process.env.SALT_ROUNDS))
+      }
+      const userUpdated=await Users.findOneAndUpdate({ _id: userID },
+          {
+              name: name,
+              email: email,
+              password: hashPassword
+          }).select('-password')
+
+      return res.status(200).json({
+          success: true,
+          Message: "User profile updated",
+          data: userUpdated
+      })
+
+  } catch (error) {
+      res.status(500).json({
+          success: false,
+          message: "Error updating user",
+          error: error.message
+      })
+  }
+
+}
