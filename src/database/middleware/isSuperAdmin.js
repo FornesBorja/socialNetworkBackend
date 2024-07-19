@@ -1,6 +1,6 @@
 export const isSuperAdmin = (req, res, next) => {
     try {
-      if(req.tokenData.role !== process.env.SUPER_ADMIN) {
+      if(req.tokenData.role !== 'super_admin') {
         return res.status(403).json(
           {
             success: false,
