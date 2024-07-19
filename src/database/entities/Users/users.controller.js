@@ -22,3 +22,26 @@ export const getAllUsers = async (req, res) =>{
         )
       }
 }
+export const getUserProfile = async (req, res) =>{
+    try {
+        console.log(userID);
+        const userProfile = await Users.findOne({ _id: userID }).select('-password')
+    
+        res.status(200).json(
+          {
+            success: true,
+            message: "User retrieved successfully",
+            data: userProfile
+          }
+        )
+    
+      } catch (error) {
+        res.status(500).json(
+          {
+            success: false,
+            message: "Error retrieving user",
+            error: error.message
+          }
+        )
+      }
+}
