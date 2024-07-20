@@ -18,6 +18,11 @@ const CommentSchema = new Schema(
       ref: "Users",
       required: [true, "You must specify the author of the comment"],
     },
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: "Posts",
+      required: [true, "You must specify the posts where comment is"],
+    },
   },
   {
     timestamps: true,

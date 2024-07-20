@@ -7,8 +7,10 @@ export const postsSeeder = async () => {
   try {
     await dbConnection();
     await Posts.deleteMany({});
-    const users=await Users.find({})
-    const posts = [
+    const users = await Users.find({}, '_id'); 
+    if (users.length === 0) {
+      throw new Error("No users found to assign posts");
+    }    const posts = [
       {
         title: "First Post",
         content: "This is the content of the first post",
@@ -39,7 +41,10 @@ export const postsSeeder = async () => {
     let insertedPosts;
     try {
       insertedPosts = await Posts.insertMany(posts);
-      console.log("Posts seeded:", insertedPosts); 
+      console.log('===========================');
+      console.log("Posts seeded:", insertedPosts);
+      console.log('===========================');
+
     } catch (err) {
       console.error('Error inserting posts:', err);
       mongoose.connection.close();
@@ -52,8 +57,10 @@ export const postsSeeder = async () => {
         const userPosts = insertedPosts
           .filter(post => post.author.equals(userId)) 
           .map(post => post._id);
-  
+        console.log('===========================');
         console.log(`Updating user ${users[i]._id} with posts:`, userPosts);
+        console.log('===========================');
+
   
         await Users.findByIdAndUpdate(userId, { $set: { posts: userPosts } });
       } catch (err) {
