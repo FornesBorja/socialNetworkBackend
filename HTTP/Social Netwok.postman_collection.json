@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"\",\r\n    \"password\":\"\"\r\n}",
+							"raw": "{\r\n    \"email\":\"usuario@usuario.com\",\r\n    \"password\":\"pass12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -38,13 +38,45 @@
 					},
 					"response": [
 						{
-							"name": "Register example",
+							"name": "Register failed",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"dani@dani.com\",\r\n    \"password\":\"dani123pass\"\r\n}",
+									"raw": "{\r\n    \"email\":\"dani@dani\",\r\n    \"password\":\"dani123pass\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:2626/api/auth/register",
+									"host": [
+										"localhost"
+									],
+									"port": "2626",
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Register successful",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"usuario@usuario.com\",\r\n    \"password\":\"pass12345\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -106,7 +138,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"espe@espe.com\",\r\n    \"password\":\"espe12pass\"\r\n}",
+									"raw": "{\r\n    \"email\":\"admin@admin.com\",\r\n    \"password\":\"password4\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -138,7 +170,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"dani@dani.com\",\r\n    \"password\":\"dani123pass\"\r\n}",
+									"raw": "{\r\n    \"email\":\"example@email.com\",\r\n    \"password\":\"password1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -169,7 +201,173 @@
 		},
 		{
 			"name": "Users",
-			"item": []
+			"item": [
+				{
+					"name": "Get all users (super_admin)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWJkOWRhZTRmZmFkNDRkY2FlOWZjMyIsInJvbGUiOiJzdXBlcl9hZG1pbiIsImlhdCI6MTcyMTQ5MTgyMCwiZXhwIjoxNzUzMDQ5NDIwfQ.Xs1haU1-3r_hbB9Rhtj6C2L9oRVQl8lKNDR8HWPtTYY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2626/api/users",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWE5YmViMWFhZThhMmEzZTk5NjY2NSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIxNDA5NTEyLCJleHAiOjE3NTI5NjcxMTJ9.xtpgmF8z-q9mAfJQT34vtHtoLfGQjbCXWyWDTkBkEAI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2626/api/users/profile",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWJkOWRhZTRmZmFkNDRkY2FlOWZjMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIxNDkyMzQ3LCJleHAiOjE3NTMwNDk5NDd9.xW3NACkaV-e3Qq1q3MzAFLaalXYDVihV_qsGPkTcfCk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"example@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2626/api/users/profile",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Create posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWJkOWRhZTRmZmFkNDRkY2FlOWZjMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIxNDkyNTE1LCJleHAiOjE3NTMwNTAxMTV9.ojqSw040V90x1hUXWRL4aFbZwXH55iGG9YCfFj_8V74",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"Example\",\r\n    \"multimedia\":\"https://imgs.search.brave.com/R5D5DyyNkqMLV5xo65x77TL2B5HcceZ_SF-YPkllt-o/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNi8x/MS8yMi8wNy8yNi9p/bmRpYW5hLWR1bmVz/LXN0YXRlLXBhcmst/MTg0ODU1OV82NDAu/anBn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2626/api/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
