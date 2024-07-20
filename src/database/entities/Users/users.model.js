@@ -4,18 +4,26 @@ const UserSchema = new Schema(
   {
     email: {
       type: String,
-      required:  [true, 'Email is required'],
+      required: [true, "Email is required"],
       unique: true,
-      match: [/.+@.+\..+/, 'Please enter a valid email address'],
+      match: [/.+@.+\..+/, "Please enter a valid email address"],
     },
     password: {
       type: String,
-      required:[true, 'Password is required'],
+      required: [true, "Password is required"],
     },
-    posts: [{
+    posts: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'Post'
-      }],
+        ref: "Posts",
+      },
+    ],
+    followers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Users",
+      },
+    ],
     is_active: {
       type: Boolean,
       default: true,
@@ -28,6 +36,7 @@ const UserSchema = new Schema(
   },
   {
     timestamps: true,
+    versionKey:false
   }
 );
 

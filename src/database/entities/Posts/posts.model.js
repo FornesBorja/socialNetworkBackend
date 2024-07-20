@@ -9,12 +9,21 @@ const PostSchema = new Schema(
       type: String,
       required: [true, "You must type something to publish it"],
     },
+    likes:{
+      type: Schema.Types.ObjectId,
+      ref: "Users",
+    },
+    comment:{
+      type: Schema.Types.ObjectId,
+      ref: "Comments",
+    },
     multimedia: {
       type: String,
     },
   },
   {
     timestamps: true,
+    versionKey:false
   }
 );
 
