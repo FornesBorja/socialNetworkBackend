@@ -18,10 +18,10 @@ const PostSchema = new Schema(
       ref: "Users",
       required:[true, "You must specify the author"],
     },
-    comment:{
+    comment:[{
       type: Schema.Types.ObjectId,
       ref: "Comments",
-    },
+    }],
     multimedia: {
       type: String,
     },
