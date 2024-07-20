@@ -17,12 +17,6 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    posts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Posts",
-      },
-    ],
     followers: [
       {
         type: Schema.Types.ObjectId,
