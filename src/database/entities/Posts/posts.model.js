@@ -9,9 +9,14 @@ const PostSchema = new Schema(
       type: String,
       required: [true, "You must type something to publish it"],
     },
-    likes:{
+    likes:[{
       type: Schema.Types.ObjectId,
       ref: "Users",
+    }],
+    author:{
+      type: Schema.Types.ObjectId,
+      ref: "Users",
+      required:[true, "You must specify the author"],
     },
     comment:{
       type: Schema.Types.ObjectId,

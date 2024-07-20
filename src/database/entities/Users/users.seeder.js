@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import fs from 'fs/promises';
 import "dotenv/config";
 import Users from "./users.model.js";
 import { dbConnection, dbDisconnection } from "../../db.js";
@@ -41,7 +42,7 @@ export const usersSeeder = async () => {
     
       await Users.insertMany(users);
       console.log("Users seeded");
-    
+      
   } catch (error) {
     console.log('===========================');
         console.log('ERROR USERS SEEDER', error.message);
