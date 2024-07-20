@@ -1,14 +1,23 @@
 import { Schema, model } from "mongoose";
 
-const postSchema = new Schema({
-  title: String,
-  content: String,
-  createdAt: {
-    type: Date,
-    default: Date.now
+const PostSchema = new Schema(
+  {
+    title: {
+      type: String,
+    },
+    content: {
+      type: String,
+      required: [true, "You must type something to publish it"],
+    },
+    multimedia: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
   }
-});
+);
 
-const Post = mongoose.model('Posts', postSchema);
+const posts = model("Posts", PostSchema);
 
-module.exports = Post;
+export default posts;
