@@ -69,3 +69,52 @@ export const deletePostByID = async (req, res) => {
     });
   }
 };
+
+export const updatePostById = async (req, res) => {
+	try {
+        const userId= req.tokenData.id;
+		const postIdToUpdate = req.params.id;
+		const { title, description, multimedia } = req.body;
+		const post = await Posts.findOne({
+		  where: {
+			id: postIdToUpdate,
+		  },
+		});
+		if (!post) {
+		  return res.status(404).json({
+			success: false,
+			message: 'Post not found',
+		  });
+		}
+        if (post.author.toString() !== userId) {
+            return res.status(403).json({
+              success: false,
+              message: "You are not authorized to update this post",
+            });
+          }
+		const updatedFields = {
+          title,
+		  description,
+		  multimedia,
+		};
+		await Posts.updateOne(
+		  {
+			_id: postIdToUpdate,
+		  },
+		  updatedFields,
+		);
+
+        return res.status(200).json({
+		  success: true,
+		  message: 'Post updated successfully',
+		  data: updatedFields,
+		});
+		
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: 'Error updating post',
+			error: error.message,
+		});
+	}
+};
