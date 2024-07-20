@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const PostSchema = new Schema(
+const PostsSchema = new Schema(
   {
     title: {
       type: String,
@@ -18,10 +18,6 @@ const PostSchema = new Schema(
       ref: "Users",
       required:[true, "You must specify the author"],
     },
-    comment:[{
-      type: Schema.Types.ObjectId,
-      ref: "Comments",
-    }],
     multimedia: {
       type: String,
     },
@@ -32,6 +28,6 @@ const PostSchema = new Schema(
   }
 );
 
-const posts = model("Posts", PostSchema);
+const Posts = model("Posts", PostsSchema);
 
-export default posts;
+export default Posts;

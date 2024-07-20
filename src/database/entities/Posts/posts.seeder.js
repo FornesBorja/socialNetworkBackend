@@ -51,25 +51,9 @@ export const postsSeeder = async () => {
       return;
     }
   
-    for (let i = 0; i < users.length; i++) {
-      try {
-        const userId = new mongoose.Types.ObjectId(users[i]._id); 
-        const userPosts = insertedPosts
-          .filter(post => post.author.equals(userId)) 
-          .map(post => post._id);
-        console.log('===========================');
-        console.log(`Updating user ${users[i]._id} with posts:`, userPosts);
-        console.log('===========================');
-
-  
-        await Users.findByIdAndUpdate(userId, { $set: { posts: userPosts } });
-      } catch (err) {
-        console.error(`Error updating user ${users[i]._id}:`, err);
-      }
-    }
-  
-    console.log("Users updated with posts");
   } catch (error) {
+    console.log("Error in posts seeders", error);
+
   } finally {
     dbDisconnection()
   }
