@@ -7,3 +7,13 @@ export const dbConnection = () => {
       {}
     );
   };
+
+  export const dbDisconnection = async () => {
+    console.log('Start disconnection');
+    try {
+        await mongoose.disconnect();
+        console.log('DB successfully disconnected');
+    } catch (error) {
+        console.error('Error trying to disconnect the DB: ', error);
+    }
+};

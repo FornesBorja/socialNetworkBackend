@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
-    "drop": "node ./src/database/dropDb.js",
+    "drop": "node ./src/database/dbDrop.js",
+    "seed": "node ./src/database/dbSeeder.js",
     "dev": "nodemon ./src/server.js"
   },
   "keywords": [],

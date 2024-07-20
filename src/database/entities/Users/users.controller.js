@@ -45,7 +45,6 @@ export const getUserProfile = async (req, res) =>{
         )
       }
 }
-
 export const updateUserProfile = async (req, res) => {
   try {
       const userID = req.tokenData.id

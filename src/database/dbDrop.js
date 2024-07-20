@@ -1,17 +1,15 @@
 import mongoose from "mongoose";
 import "dotenv/config";
+import { dbConnection, dbDisconnection } from "./db.js";
 
-const dbUri = process.env.MONGO_URI; 
 async function dropDatabase() {
   try {
-    await mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('Connecting to DB');
+    dbConnection()
 
     await mongoose.connection.db.dropDatabase();
     console.log('DB deleted successfully');
 
-    await mongoose.connection.close();
-    console.log('Conection closed');
+    dbDisconnection()
   } catch (err) {
     console.error("Can't delete DB", err);
     await mongoose.connection.close();
