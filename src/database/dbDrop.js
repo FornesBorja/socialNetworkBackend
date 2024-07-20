@@ -2,18 +2,30 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import { dbConnection, dbDisconnection } from "./db.js";
 
-async function dropDatabase() {
+(async () => {
   try {
-    dbConnection()
+    await dbConnection();
+    if (mongoose.connection.readyState !== 1) {
+      throw new Error('Te connection is NOT active');
+    }
+    const db = mongoose.connection.getClient().db();
+    if (!db) {
+      throw new Error("Can't reach DB");
+    }
+    const collections = await db.listCollections().toArray();
+    console.log('Collections of DB:', collections.map(c => c.name));
 
-    await mongoose.connection.db.dropDatabase();
-    console.log('DB deleted successfully');
+    for (const collection of collections) {
+      const collectionName = collection.name;
+      if (collectionName !== 'system.indexes') {
+        await db.dropCollection(collectionName);
+        console.log(`Collections ${collectionName} deleted succesfully`);
+      }
+    }
 
-    dbDisconnection()
   } catch (err) {
-    console.error("Can't delete DB", err);
-    await mongoose.connection.close();
+    console.error("Error:", err);
+  } finally {
+    await dbDisconnection();
   }
-}
-
-dropDatabase();
+})();

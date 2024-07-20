@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import "dotenv/config";
+import fs from 'fs';
 import Users from "./users.model.js";
 import { dbConnection, dbDisconnection } from "../../db.js";
 
 export const usersSeeder = async () => {
   try {
     await dbConnection()
-    await Users.deleteMany({});
     const users = [
         {
           email: "user1@example.com",
@@ -41,7 +41,7 @@ export const usersSeeder = async () => {
     
       await Users.insertMany(users);
       console.log("Users seeded");
-    
+      fs.writeFileSync('users.json', JSON.stringify(insertedUsers));
   } catch (error) {
     console.log('===========================');
         console.log('ERROR USERS SEEDER', error.message);
