@@ -69,17 +69,20 @@ export const deletePostByID = async (req, res) => {
     });
   }
 };
-
 export const updatePostById = async (req, res) => {
 	try {
         const userId= req.tokenData.id;
 		const postIdToUpdate = req.params.id;
+        const postToDeleteValid = Types.ObjectId.isValid(postIdToUpdate)
 		const { title, description, multimedia } = req.body;
-		const post = await Posts.findOne({
-		  where: {
-			id: postIdToUpdate,
-		  },
-		});
+
+        if (!postToDeleteValid) {
+            return res.status(400).json({
+              success: false,
+              message: "Post ID not valid",
+            });
+          }
+		const post = await Posts.findOne({_id: postIdToUpdate} );
 		if (!post) {
 		  return res.status(404).json({
 			success: false,
@@ -117,4 +120,47 @@ export const updatePostById = async (req, res) => {
 			error: error.message,
 		});
 	}
+};
+export const getOwnPost = async (req, res) => {
+    try {
+        const userID = req.tokenData.id;
+        const userPosts = await Posts.find({ author: userID }).select(
+          "-password"
+        );
+        if (!userPosts) {
+          throw new Error("Posts not found");
+        }
+        return res.status(200).json({
+          success: true,
+          message: "Posts retrieved successfully",
+          data: userPosts,
+        });
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          message: "Error retrieving posts",
+          error: error.message,
+        });
+      }
+};
+export const getAllPost = async (req, res) => {
+    try {
+        const userPosts = await Posts.find().select(
+          "-password"
+        );
+        if (!userPosts) {
+          throw new Error("Posts not found");
+        }
+        return res.status(200).json({
+          success: true,
+          message: "Posts retrieved successfully",
+          data: userPosts,
+        });
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          message: "Error retrieving posts",
+          error: error.message,
+        });
+      }
 };

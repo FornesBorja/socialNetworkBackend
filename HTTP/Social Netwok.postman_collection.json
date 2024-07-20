@@ -34,7 +34,8 @@
 								"auth",
 								"register"
 							]
-						}
+						},
+						"description": "Everyone, can create a new a account, by default their role is going to be \"user\"."
 					},
 					"response": [
 						{
@@ -110,7 +111,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"espe@espe.com\",\r\n    \"password\":\"espe12pass\"\r\n}",
+							"raw": "{\r\n    \"email\":\"user1@example.com\",\r\n    \"password\":\"password1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -128,7 +129,8 @@
 								"auth",
 								"login"
 							]
-						}
+						},
+						"description": "When you finish registering you can access to new endpoints via the token the login will provide you."
 					},
 					"response": [
 						{
@@ -197,7 +199,8 @@
 						}
 					]
 				}
-			]
+			],
+			"description": "All authentification related endpoints"
 		},
 		{
 			"name": "Users",
@@ -239,7 +242,8 @@
 								"api",
 								"users"
 							]
-						}
+						},
+						"description": "Only is accesible by super_admin if you aren't super_admin it will return an error."
 					},
 					"response": []
 				},
@@ -324,7 +328,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "All authentification related endpoints"
 		},
 		{
 			"name": "Posts",
@@ -362,6 +367,138 @@
 							"path": [
 								"api",
 								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete post by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWJkOWRhZTRmZmFkNDRkY2FlOWZjMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIxNDkyNTE1LCJleHAiOjE3NTMwNTAxMTV9.ojqSw040V90x1hUXWRL4aFbZwXH55iGG9YCfFj_8V74",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2626/api/posts/669bd9dde4ffad44dcae9fca",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"posts",
+								"669bd9dde4ffad44dcae9fca"
+							]
+						},
+						"description": "Accesible by all users but you can't delete someone else's post."
+					},
+					"response": []
+				},
+				{
+					"name": "Update post by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWJkOWRhZTRmZmFkNDRkY2FlOWZjMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIxNDkyNTE1LCJleHAiOjE3NTMwNTAxMTV9.ojqSw040V90x1hUXWRL4aFbZwXH55iGG9YCfFj_8V74",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Hi, it's a mockup title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:2626/api/posts/669bd9dde4ffad44dcae9fce",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"posts",
+								"669bd9dde4ffad44dcae9fce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts by user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWMxYmY5ZWM0YjE1MGFhYWNkMTMzMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIxNTA4MTg3LCJleHAiOjE3NTMwNjU3ODd9.G3QxOJrMcD3O1iIyKLAJy_cyki_YEYPRSzFRazRigNs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:2626/api/posts/own",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"posts",
+								"own"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all posts",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:2626/api/posts/",
+							"host": [
+								"localhost"
+							],
+							"port": "2626",
+							"path": [
+								"api",
+								"posts",
+								""
 							]
 						}
 					},
