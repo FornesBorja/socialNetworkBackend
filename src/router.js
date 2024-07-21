@@ -6,7 +6,7 @@ import { router as postRoutes } from './database/entities/Posts/posts.routes.js'
 const router = Router()
 
 router.use('/auth', authRoutes)
-router.use ('/users', usersRoutes)
+router.use('/users', usersRoutes);
 router.use ('/posts', postRoutes)
 
 export { router } 

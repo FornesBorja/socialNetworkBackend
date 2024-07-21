@@ -19,7 +19,7 @@ app.get("/healthy", (req, res) => {
 });
 
 
-app.use('/api', router)
+app.use('/api', router);
 
 dbConnection()
 .then(() => {
