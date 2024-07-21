@@ -51,26 +51,9 @@ export const commentSeeder = async () => {
     console.log("Comments seeded:", insertedComments);
     console.log("===========================");
 
-    for (let post of posts) {
-      try {
-        const postComments = insertedComments
-          .filter((comment) => comment.post.equals(post._id))
-          .map((comment) => comment._id);
-
-        console.log("===========================");
-        console.log(`Updating post ${post._id} with comments:`, postComments);
-        console.log("===========================");
-
-        await Posts.findByIdAndUpdate(post._id, {
-          $set: { comment: postComments },
-        });
-      } catch (err) {
-        console.error(`Error updating post ${post._id}:`, err);
-      }
-    }
-    console.log("Posts updated with comments");
+    
   } catch (error) {
-    console.error("Error in commentSeeder:", error.message);
+    console.error("Error in comment Seeder:", error.message);
   } finally {
     await dbDisconnection();
   }
