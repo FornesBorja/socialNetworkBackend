@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
     "start": "node ./src/server.js",
     "drop": "node ./src/database/dbDrop.js",
     "seed": "node ./src/database/dbSeeder.js",
