@@ -24,11 +24,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/auth/register",
+							"raw": "https://social-network-fornesb.zeabur.app/api/auth/register",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"auth",
@@ -119,11 +121,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/auth/login",
+							"raw": "https://social-network-fornesb.zeabur.app/api/auth/login",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"auth",
@@ -233,11 +237,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/users",
+							"raw": "https://social-network-fornesb.zeabur.app/api/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"users"
@@ -275,17 +281,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/users/profile",
+							"raw": "https://social-network-fornesb.zeabur.app/api/users/profile",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"users",
 								"profile"
 							]
-						}
+						},
+						"description": "Retrieves your own timeline."
 					},
 					"response": []
 				},
@@ -314,17 +323,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/users/profile",
+							"raw": "https://social-network-fornesb.zeabur.app/api/users/profile",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"users",
 								"profile"
 							]
-						}
+						},
+						"description": "It gives you the ability to update your name, email and password. You can't change your role."
 					},
 					"response": []
 				}
@@ -359,16 +371,19 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/posts",
+							"raw": "https://social-network-fornesb.zeabur.app/api/posts",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"posts"
 							]
-						}
+						},
+						"description": "Create posts for the user who's logging in."
 					},
 					"response": []
 				},
@@ -397,18 +412,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/posts/669bd9dde4ffad44dcae9fca",
+							"raw": "https://social-network-fornesb.zeabur.app/api/posts/669bd9dde4ffad44dcae9fca",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"posts",
 								"669bd9dde4ffad44dcae9fca"
 							]
 						},
-						"description": "Accesible by all users but you can't delete someone else's post."
+						"description": "Accesible by all users (need to be logged) but you can't delete someone else's post."
 					},
 					"response": []
 				},
@@ -437,22 +454,25 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:2626/api/posts/669bd9dde4ffad44dcae9fce",
+							"raw": "https://social-network-fornesb.zeabur.app/api/posts/669bd9dde4ffad44dcae9fce",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"posts",
 								"669bd9dde4ffad44dcae9fce"
 							]
-						}
+						},
+						"description": "Accesible by all users (need to be logged) but you can't update someone else's post."
 					},
 					"response": []
 				},
 				{
-					"name": "Get posts by user",
+					"name": "Get own posts",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -467,17 +487,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:2626/api/posts/own",
+							"raw": "https://social-network-fornesb.zeabur.app/api/posts/own",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"posts",
 								"own"
 							]
-						}
+						},
+						"description": "Retrieves you own posts, need to logged in."
 					},
 					"response": []
 				},
@@ -490,21 +513,109 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:2626/api/posts/",
+							"raw": "https://social-network-fornesb.zeabur.app/api/posts/",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"social-network-fornesb",
+								"zeabur",
+								"app"
 							],
-							"port": "2626",
 							"path": [
 								"api",
 								"posts",
 								""
 							]
-						}
+						},
+						"description": "Retrieves all user's posts. I made it accesible even if you no are logged."
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts by ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://social-network-fornesb.zeabur.app/api/posts/669deffdc8ab79bb3bbf45e0",
+							"protocol": "https",
+							"host": [
+								"social-network-fornesb",
+								"zeabur",
+								"app"
+							],
+							"path": [
+								"api",
+								"posts",
+								"669deffdc8ab79bb3bbf45e0"
+							]
+						},
+						"description": "Retrieves one post (the post who has that id). I made it accesible even if you no are logged."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all post by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://social-network-fornesb.zeabur.app/api/users/posts/669c1bf9ec4b150aaacd1330",
+							"protocol": "https",
+							"host": [
+								"social-network-fornesb",
+								"zeabur",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"posts",
+								"669c1bf9ec4b150aaacd1330"
+							]
+						},
+						"description": "Retrieves all user's (the user who has that id) posts. I made it accesible even if you no are logged."
+					},
+					"response": []
+				},
+				{
+					"name": "Like by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OWMxYmY5ZWM0YjE1MGFhYWNkMTMzMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIxNTA4MTg3LCJleHAiOjE3NTMwNjU3ODd9.G3QxOJrMcD3O1iIyKLAJy_cyki_YEYPRSzFRazRigNs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://social-network-fornesb.zeabur.app/api/posts/like/669deffdc8ab79bb3bbf45e0",
+							"protocol": "https",
+							"host": [
+								"social-network-fornesb",
+								"zeabur",
+								"app"
+							],
+							"path": [
+								"api",
+								"posts",
+								"like",
+								"669deffdc8ab79bb3bbf45e0"
+							]
+						},
+						"description": "Like/dislike posts, you can't access if you are no logged."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "All authentification related endpoints."
 		}
 	]
 }

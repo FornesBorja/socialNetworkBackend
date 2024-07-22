@@ -162,8 +162,7 @@ export const getAllPost = async (req, res) => {
 export const getPostByID = async (req, res) => {
   try {
     const postID = req.params.id;
-    const idPost = await Posts.findById(postID).select("-password");
-    console.log(idPost)
+    const idPost = await Posts.findById(postID).select('-password');
     if (!idPost) {
       return res.status(404).json({
         success: false,
