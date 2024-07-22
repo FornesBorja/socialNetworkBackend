@@ -162,9 +162,13 @@ export const getAllPost = async (req, res) => {
 export const getPostByID = async (req, res) => {
   try {
     const postID = req.params.id;
-    const idPost = await Posts.find({ _id: postID }).select("-password");
+    const idPost = await Posts.findById(postID).select("-password");
+    console.log(idPost)
     if (!idPost) {
-      throw new Error("Posts not found");
+      return res.status(404).json({
+        success: false,
+        message: "Post not found",
+      });
     }
     return res.status(200).json({
       success: true,
@@ -172,7 +176,7 @@ export const getPostByID = async (req, res) => {
       data: idPost,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Error retrieving post",
       error: error.message,
@@ -204,7 +208,7 @@ export const likeById = async (req, res) => {
     const postId = req.params.id;
     const userId = req.tokenData.id;
 
-    const post = await Post.findById(postId);
+    const post = await Posts.findById(postId);
 
     if (!post) {
       return res.status(404).json({
