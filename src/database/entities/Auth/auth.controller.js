@@ -13,11 +13,7 @@ export const register = async (req, res) => {
 
     if(!email || !password)
     {
-      res.status(500).json({
-        success: false,
-        message: "Password and email are required",
-        error: error.message,
-      });    
+        throw new Error ("email and password are required!")
     }
 
     const newUSer = await User.create({
@@ -48,7 +44,7 @@ export const login = async (req, res) =>{
         email: email
       }
     )
-
+  
     if(!user) {
       return res.status(400).json(
         {
@@ -88,6 +84,19 @@ export const login = async (req, res) =>{
       }
     )
   } catch (error) {
+    if (error.name === 'Please enter a valid email address') {
+      const validEmailAddress = Object.values(error.errors)[0].message;
+      return res.status(400).json({ success: false, message: validEmailAddress });
+    }
+    if (error.name === 'Password is required') {
+      const requiredPass = Object.values(error.errors)[0].message;
+      return res.status(400).json({ success: false, message: requiredPass });
+    }
+
+    if (error.code === 11000) {
+      return res.status(400).json({ success: false, message: "Email already registered" });
+    }
+
     res.status(500).json(
       {
         success: false,
