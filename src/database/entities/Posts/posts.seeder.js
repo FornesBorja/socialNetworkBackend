@@ -10,7 +10,8 @@ export const postsSeeder = async () => {
     const users = await Users.find({}, '_id'); 
     if (users.length === 0) {
       throw new Error("No users found to assign posts");
-    }    const posts = [
+    }    
+    const posts = [
       {
         title: "First Post",
         content: "This is the content of the first post",

@@ -13,7 +13,11 @@ export const register = async (req, res) => {
 
     if(!email || !password)
     {
-        throw new Error ("email and password are required!")
+      res.status(500).json({
+        success: false,
+        message: "Password and email are required",
+        error: error.message,
+      });    
     }
 
     const newUSer = await User.create({
