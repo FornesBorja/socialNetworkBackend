@@ -12,7 +12,10 @@ export const register = async (req, res) => {
     );
 
     if (!email || !password) {
-      throw new Error("email and password are required!");
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required!"
+      });
     }
 
     const newUSer = await User.create({
@@ -26,24 +29,22 @@ export const register = async (req, res) => {
       data: newUSer,
     });
   } catch (error) {
-    if (error.name === "Please enter a valid email address") {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Please enter a valid email address",
-          error: error.message,
-        });
+    if (error.name === "ValidationError") {
+      const firstError = Object.values(error.errors)[0].message; 
+      return res.status(400).json({
+        success: false,
+        message: firstError
+      });
     }
-    if (error.name === "Email and password are required!") {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Email and password are required!",
-          error: error.message,
-        });
-    }
+    // if (error.name === "Email and password are required!") {
+    //   return res
+    //     .status(400)
+    //     .json({
+    //       success: false,
+    //       message: "Email and password are required!",
+    //       error: error.message,
+    //     });
+    // }
 
     if (error.code === 11000) {
       return res
