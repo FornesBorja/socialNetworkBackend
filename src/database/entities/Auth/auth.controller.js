@@ -14,6 +14,7 @@ export const register = async (req, res) => {
     if(!email || !password)
     {
         throw new Error ("email and password are required!")
+        
     }
 
     const newUSer = await User.create({
@@ -88,7 +89,7 @@ export const login = async (req, res) =>{
       const validEmailAddress = Object.values(error.errors)[0].message;
       return res.status(400).json({ success: false, message: validEmailAddress });
     }
-    if (error.name === 'Password is required') {
+    if (error.name === 'Email and password are required!') {
       const requiredPass = Object.values(error.errors)[0].message;
       return res.status(400).json({ success: false, message: requiredPass });
     }
