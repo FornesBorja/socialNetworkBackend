@@ -28,6 +28,19 @@ export const register = async (req, res) => {
       data: newUSer,
     });
   } catch (error) {
+    if (error.name === 'Please enter a valid email address') {
+      const validEmailAddress = Object.values(error.errors)[0].message;
+      return res.status(400).json({ success: false, message: validEmailAddress });
+    }
+    if (error.name === 'Email and password are required!') {
+      const requiredPass = Object.values(error.errors)[0].message;
+      return res.status(400).json({ success: false, message: requiredPass });
+    }
+
+    if (error.code === 11000) {
+      return res.status(400).json({ success: false, message: "Email already registered" });
+    }
+
     res.status(500).json({
       success: false,
       message: "Error registering user",
@@ -85,19 +98,6 @@ export const login = async (req, res) =>{
       }
     )
   } catch (error) {
-    if (error.name === 'Please enter a valid email address') {
-      const validEmailAddress = Object.values(error.errors)[0].message;
-      return res.status(400).json({ success: false, message: validEmailAddress });
-    }
-    if (error.name === 'Email and password are required!') {
-      const requiredPass = Object.values(error.errors)[0].message;
-      return res.status(400).json({ success: false, message: requiredPass });
-    }
-
-    if (error.code === 11000) {
-      return res.status(400).json({ success: false, message: "Email already registered" });
-    }
-
     res.status(500).json(
       {
         success: false,
