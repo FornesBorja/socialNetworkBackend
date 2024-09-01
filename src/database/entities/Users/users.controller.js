@@ -83,45 +83,26 @@ export const updateUserProfile = async (req, res) => {
 };
 
 export const followById = async (req, res) => {
+  const { userId } = req.params;
+  const { id } = req.tokenData; 
+
   try {
-    const userId =  req.tokenData.id;
-    const userToFollowId = req.params.userId;
+    const targetUser = await Users.findById(userId);
+    if (!targetUser) return res.status(404).json({ message: 'Target user not found' });
 
-    const user = await Users.findById(userToFollowId);
+    const currentUser = await Users.findById(id);
+    if (!currentUser) return res.status(404).json({ message: 'Current user not found' });
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found.",
-      });
+    if (targetUser.followers.includes(id)) {
+      return res.status(400).json({ message: 'You are already following this user' });
     }
 
-    const userIndex = user.followers.indexOf(userId);
+    targetUser.followers.push(id);
+    await targetUser.save();
 
-    if (userIndex !== -1) {
-      user.followers.splice(userIndex, 1);
-      const updatedUser = await user.save();
-
-      return res.status(200).json({
-        success: true,
-        message: "Current user unfollowed the user.",
-        data: updatedUser,
-      });
-    } else {
-      user.likes.push(userId);
-      const updatedUser = await user.save();
-
-      return res.status(200).json({
-        success: true,
-        message: "Current user followed the user.",
-        data: updatedUser,
-      });
-    }
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Error processing follow/unfollow action.",
-      error: error.message,
-    });
+    res.status(200).json({ message: 'Followed successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
