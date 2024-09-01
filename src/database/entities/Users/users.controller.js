@@ -84,8 +84,8 @@ export const updateUserProfile = async (req, res) => {
 
 export const followById = async (req, res) => {
   try {
-    const userId =  req.tokenData.id;
-    const userToFollowId = req.tokenData.id;
+    const userId =  req.tokenData._id;
+    const userToFollowId = req.params.userId;
 
     const user = await Users.findById(userToFollowId);
 
@@ -114,7 +114,7 @@ export const followById = async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "Current user followed the user.",
-        data: updateduser,
+        data: updatedUser,
       });
     }
   } catch (error) {
