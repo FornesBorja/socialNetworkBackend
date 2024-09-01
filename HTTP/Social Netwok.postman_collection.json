@@ -152,11 +152,13 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:2626/api/auth/login",
+									"raw": "https://social-network-fornesb.zeabur.app/api/auth/login",
+									"protocol": "https",
 									"host": [
-										"localhost"
+										"social-network-fornesb",
+										"zeabur",
+										"app"
 									],
-									"port": "2626",
 									"path": [
 										"api",
 										"auth",
@@ -184,11 +186,13 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:2626/api/auth/login",
+									"raw": "https://social-network-fornesb.zeabur.app/api/auth/login",
+									"protocol": "https",
 									"host": [
-										"localhost"
+										"social-network-fornesb",
+										"zeabur",
+										"app"
 									],
-									"port": "2626",
 									"path": [
 										"api",
 										"auth",

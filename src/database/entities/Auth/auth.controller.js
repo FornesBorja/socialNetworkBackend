@@ -1,6 +1,6 @@
-import bcrypt from "bcrypt"
-import User from "../Users/users.model.js"
-import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt";
+import User from "../Users/users.model.js";
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
@@ -11,9 +11,11 @@ export const register = async (req, res) => {
       parseInt(process.env.SALT_ROUNDS)
     );
 
-    if(!email || !password)
-    {
-        throw new Error ("email and password are required!")
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required!"
+      });
     }
 
     const newUSer = await User.create({
@@ -27,6 +29,33 @@ export const register = async (req, res) => {
       data: newUSer,
     });
   } catch (error) {
+    if (error.name === "ValidationError") {
+      const firstError = Object.values(error.errors)[0].message; 
+      return res.status(400).json({
+        success: false,
+        message: firstError
+      });
+    }
+    // if (error.name === "Email and password are required!") {
+    //   return res
+    //     .status(400)
+    //     .json({
+    //       success: false,
+    //       message: "Email and password are required!",
+    //       error: error.message,
+    //     });
+    // }
+
+    if (error.code === 11000) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Email already registered",
+          error: error.message,
+        });
+    }
+
     res.status(500).json({
       success: false,
       message: "Error registering user",
@@ -35,61 +64,51 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) =>{
+export const login = async (req, res) => {
   try {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
-    const user = await User.findOne(
-      {
-        email: email
-      }
-    )
+    const user = await User.findOne({
+      email: email,
+    });
 
-    if(!user) {
-      return res.status(400).json(
-        {
-          success: false,
-          message: "user or password invalid"
-        }
-      )
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "user or password invalid",
+      });
     }
 
-    const isPasswordValid = bcrypt.compareSync(password, user.password)
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
 
-    if(!isPasswordValid){
-      return res.status(400).json(
-        {
-          success: false,
-          message: "user or password invalid"
-        }
-      )
+    if (!isPasswordValid) {
+      return res.status(400).json({
+        success: false,
+        message: "user or password invalid",
+      });
     }
 
     const token = jwt.sign(
       {
         id: user._id,
-        role: user.role
+        role: user.role,
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: process.env.EXPIRE_DATE
+        expiresIn: process.env.EXPIRE_DATE,
       }
-    )
+    );
 
-    res.status(200).json(
-      {
-        success: true,
-        message: "user Logged",
-        token: token
-      }
-    )
+    res.status(200).json({
+      success: true,
+      message: "user Logged",
+      token: token,
+    });
   } catch (error) {
-    res.status(500).json(
-      {
-        success: false,
-        message: "Error loging user",
-        error: error.message
-      }
-    )
+    res.status(500).json({
+      success: false,
+      message: "Error loging user",
+      error: error.message,
+    });
   }
-}
+};
