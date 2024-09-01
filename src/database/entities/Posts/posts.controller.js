@@ -246,23 +246,17 @@ export const likeById = async (req, res) => {
   }
 };
 export const getFollowingPost = async (req, res) => {
+  const { id } = req.tokenData; 
   try {
-    const currentUser = await Users.findById(req.tokenData.id).populate('followers').exec();
-    if (!currentUser) return res.status(404).json({ message: 'User not found' });
+    const usersWithCurrentUserAsFollower = await Users.find({ followers: id }).select('_id');
 
-    const followersIds = currentUser.followers.map(follower => follower._id);
+    const userIds = usersWithCurrentUserAsFollower.map(user => user._id);
 
-    const posts = await Posts.find({ author: { $in: followersIds } })
-      .populate({
-        path: 'author',
-        select: 'email' 
-      })
-      .sort({ createdAt: -1 })
-      .exec();
+    const posts = await Posts.find({ author: { $in: userIds } }).populate('author', 'email').exec();
 
-    res.json(posts);
+    res.status(200).json(posts);
   } catch (err) {
-    console.error(err);
+    console.error('Server error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };
