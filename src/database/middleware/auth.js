@@ -2,31 +2,39 @@ import jwt from 'jsonwebtoken'
 
 export const auth = (req, res, next) => {
   try {
-    if(!req.headers.authorization) {
-      return res.status(401).json(
-        {
-          suucess: false,
-          message: "Unauthorized"
-        }
-      )
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      console.log('No authorization header');
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
     }
 
-    const token = req.headers.authorization.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);    
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      console.log('No token found');
+      return res.status(401).json({
+        success: false,
+        message: "Token is missing"
+      });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Decoded token:', decoded);
 
     req.tokenData = {
       id: decoded.id,
       role: decoded.role
-    }
+    };
 
     next();
   } catch (error) {
-    res.status(500).json(
-      {
-        success: false,
-        message: "Error authenticadd",
-        error: error
-      }
-    )
+    console.error('Authentication error:', error);
+    res.status(500).json({
+      success: false,
+      message: "Error authenticating",
+      error: error.message
+    });
   }
-}
+};
