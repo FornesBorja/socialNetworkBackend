@@ -81,3 +81,47 @@ export const updateUserProfile = async (req, res) => {
     });
   }
 };
+
+export const followById = async (req, res) => {
+  try {
+    const userId =  req.tokenData.id;
+    const userToFollowId = req.tokenData.id;
+
+    const user = await Users.findById(userToFollowId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    const userIndex = user.followers.indexOf(userId);
+
+    if (userIndex !== -1) {
+      user.followers.splice(userIndex, 1);
+      const updatedUser = await user.save();
+
+      return res.status(200).json({
+        success: true,
+        message: "Current user unfollowed the user.",
+        data: updatedUser,
+      });
+    } else {
+      user.likes.push(userId);
+      const updatedUser = await user.save();
+
+      return res.status(200).json({
+        success: true,
+        message: "Current user followed the user.",
+        data: updateduser,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error processing follow/unfollow action.",
+      error: error.message,
+    });
+  }
+};
