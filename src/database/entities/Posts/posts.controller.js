@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import Posts from "./posts.model.js";
+import Users from "../Users/users.model.js";
 
 export const createPost = async (req, res) => {
   try {
