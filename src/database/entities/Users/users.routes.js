@@ -11,7 +11,7 @@ router.get('/', auth, isSuperAdmin, getAllUsers)
 router.get('/profile', auth, getUserProfile)
 router.put('/profile', auth, updateUserProfile)
 router.get('/posts/:userId', getPostByUserID);
-router.put('/follow/:userId', followById);
+router.put('/follow/:userId',auth , followById);
 
 
 export { router }
