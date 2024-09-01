@@ -84,7 +84,7 @@ export const updateUserProfile = async (req, res) => {
 
 export const followById = async (req, res) => {
   try {
-    const userId =  req.tokenData._id;
+    const userId =  req.tokenData.id;
     const userToFollowId = req.params.userId;
 
     const user = await Users.findById(userToFollowId);
