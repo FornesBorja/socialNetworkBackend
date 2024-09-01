@@ -247,7 +247,7 @@ export const likeById = async (req, res) => {
 };
 export const getFollowingPost = async (req, res) => {
   try {
-    const currentUser = await Users.findById(req.user.id).populate('followers').exec();
+    const currentUser = await Users.findById(req.tokenData.id).populate('followers').exec();
     if (!currentUser) return res.status(404).json({ message: 'User not found' });
 
     const followersIds = currentUser.followers.map(follower => follower._id);
