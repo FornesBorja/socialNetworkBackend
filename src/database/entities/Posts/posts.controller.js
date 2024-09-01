@@ -245,3 +245,24 @@ export const likeById = async (req, res) => {
     });
   }
 };
+export const getFollowingPost = async (req, res) => {
+  try {
+    const currentUser = await Users.findById(req.user.id).populate('followers').exec();
+    if (!currentUser) return res.status(404).json({ message: 'User not found' });
+
+    const followersIds = currentUser.followers.map(follower => follower._id);
+
+    const posts = await Posts.find({ author: { $in: followersIds } })
+      .populate({
+        path: 'author',
+        select: 'email' 
+      })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    res.json(posts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
