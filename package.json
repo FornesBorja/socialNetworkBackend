@@ -6,7 +6,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist",
     "start": "node ./src/server.js",
+    "drop": "node ./src/database/dbDrop.js",
+    "seed": "node ./src/database/dbSeeder.js",
+    "refresh": "npm run drop && npm run seed",
     "dev": "nodemon ./src/server.js"
   },
   "keywords": [],
@@ -14,10 +18,17 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.5.0",
+    "mongoose": "^8.5.1",
     "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.24.9",
+    "@babel/preset-env": "^7.24.8",
+    "@types/cors": "^2.8.17"
   }
 }
