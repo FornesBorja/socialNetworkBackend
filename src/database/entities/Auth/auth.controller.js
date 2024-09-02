@@ -36,15 +36,6 @@ export const register = async (req, res) => {
         message: firstError
       });
     }
-    // if (error.name === "Email and password are required!") {
-    //   return res
-    //     .status(400)
-    //     .json({
-    //       success: false,
-    //       message: "Email and password are required!",
-    //       error: error.message,
-    //     });
-    // }
 
     if (error.code === 11000) {
       return res
