@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import Posts from "./posts.model.js";
+import Users from "../Users/users.model.js";
 
 export const createPost = async (req, res) => {
   try {
@@ -243,5 +244,20 @@ export const likeById = async (req, res) => {
       message: "Error processing like/dislike action.",
       error: error.message,
     });
+  }
+};
+export const getFollowingPost = async (req, res) => {
+  const { id } = req.tokenData; 
+  try {
+    const usersWithCurrentUserAsFollower = await Users.find({ followers: id }).select('_id');
+
+    const userIds = usersWithCurrentUserAsFollower.map(user => user._id);
+
+    const posts = await Posts.find({ author: { $in: userIds } }).populate('author', 'email').exec();
+
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error('Server error:', err);
+    res.status(500).json({ message: 'Server error' });
   }
 };

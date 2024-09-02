@@ -83,3 +83,28 @@ export const updateUserProfile = async (req, res) => {
     });
   }
 };
+
+export const followById = async (req, res) => {
+  const { userId } = req.params;
+  const { id } = req.tokenData; 
+
+  try {
+    const targetUser = await Users.findById(userId);
+    if (!targetUser) return res.status(404).json({ message: 'Target user not found' });
+
+    const currentUser = await Users.findById(id);
+    if (!currentUser) return res.status(404).json({ message: 'Current user not found' });
+
+    if (targetUser.followers.includes(id)) {
+      return res.status(400).json({ message: 'You are already following this user' });
+    }
+
+    targetUser.followers.push(id);
+    await targetUser.save();
+
+    res.status(200).json({ message: 'Followed successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
